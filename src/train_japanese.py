@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 # Download nltk resources
 nltk.download('punkt')
 # Read dataset from file
-file_path = "jpn.txt"  
+file_path = "../data/jpn.txt"
 
 def clean_sentence(sentence):
     # Split the sentence by English or Japanese period, or question mark
@@ -120,7 +120,7 @@ print("Optimizer:", optimizer)
 
 
 # Prepare to save training and validation results
-results_path = "training_results.txt"
+results_path = "../logs/training_results_japanese.txt"
 with open(results_path, "w") as f:
     f.write("Training and Validation Results\n")
 
