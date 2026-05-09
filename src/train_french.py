@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 nltk.download('punkt')
 # Read dataset from file
 # Remember to manually cut dataset before running the file
-file_path = "fra.txt"  
+file_path = "../data/fra.txt" 
 
 def clean_sentence(sentence):
     # Split the sentence by English period, or question mark, or exclamation point
@@ -67,7 +67,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Load pre-trained tokenizer
 tokenizer = BertTokenizer.from_pretrained("bert-base-multilingual-cased")
 # Load data
-file_path = "fra.txt" 
+file_path = "../data/fra.txt"
 with open(file_path, 'r', encoding='utf-8') as file:
     lines = file.readlines()
     data = {
@@ -139,7 +139,7 @@ print("Optimizer:", optimizer)
 
 
 # Prepare to save training and validation results
-results_path = "training_results_french_edition.txt"
+results_path = "../logs/training_results_french.txt"
 with open(results_path, "w") as f:
     f.write("Training and Validation Results\n")
 
