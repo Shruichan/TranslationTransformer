@@ -9,7 +9,7 @@ decoder_config = BertConfig.from_pretrained("bert-base-multilingual-cased", deco
 enc_dec_config = EncoderDecoderConfig.from_encoder_decoder_configs(encoder_config, decoder_config)
 
 # Load the model
-model_path = 'C://Users//romed//Desktop//English to japanese//bert_translation_model_two.pth'
+model_path = '../models/bert_translation_model_japanese.pth'
 model = EncoderDecoderModel.from_pretrained(model_path, config=enc_dec_config)
 
 # Load the tokenizer
