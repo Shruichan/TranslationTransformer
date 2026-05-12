@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Path to the log file
-log_file_path = 'C://Users//romed//Desktop//English to japanese//graph it french edition.txt'
+log_file_path = '../logs/graph_french.txt'
 
 # Initialize lists to store data
 epochs = []
