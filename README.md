@@ -24,3 +24,20 @@ logs/
 
 The trained `.pth` files aren't in the repo (they're big and the `.gitignore` keeps them out).
 Train your own with the scripts, or wire it up to one you already have.
+
+## The model
+
+It's a `transformers.EncoderDecoderModel` with `bert-base-multilingual-cased` on both sides. The
+same tokenizer handles English on the way in and Japanese/French on the way out, which is the
+whole reason for using the multilingual checkpoint instead of plain BERT.
+
+Training settings are the same for both languages:
+
+- batch size 16
+- 3 epochs
+- AdamW, lr=5e-5
+- 90/10 train/val split, max sequence length 128
+
+Pairs come from Tatoeba (`tatoeba.org`). The cleaning step in both training scripts trims
+everything after the first sentence terminator (`. ? ! 。 ？ ！`) so the model isn't trying to
+emit multi-sentence outputs.
