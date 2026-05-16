@@ -61,3 +61,39 @@ The training script computes a corpus BLEU at the end, but the `references` / `h
 never actually get populated during validation (oversight from an earlier refactor), so the BLEU
 in the log files reads as 0.0 and should be ignored. The per-token accuracy and val loss are the
 real signal.
+
+## Running it
+
+```bash
+pip install -r requirements.txt
+cd src
+python train_japanese.py     # or train_french.py
+```
+
+The scripts read data from `../data/` and write logs to `../logs/`, so run them from inside `src/`
+(or edit the paths). Model weights get saved to the working directory; move them to `models/`
+if you want the inference scripts to find them with their default path.
+
+To translate a sentence, point `model_path` in `translate_japanese.py` or `translate_french.py`
+at your saved `.pth` and run it. The example sentence is hardcoded at the bottom of the file —
+edit it, or refactor into a CLI if you want to be fancy.
+
+## Things I'd change if I picked this up again
+
+- The two training scripts are 90% the same file. They should share a module and just pass the
+  language pair as an argument.
+- BLEU evaluation needs the references/hypotheses lists populated during the validation loop
+  (decode `preds` and `labels` per batch instead of trying to compute BLEU after the lists got
+  reset to `[]` inside the loop).
+- The example test sentences inside the `translate_*.py` files should be a CLI argument, not
+  hardcoded.
+- Longer training (3 epochs was just what fit on the GPU I had at the time).
+- The French run looks suspiciously good — worth checking whether the val split is actually
+  unseen data and not duplicates of the training set, since Tatoeba has a lot of near-duplicates.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
+
+Dataset credit goes to the Tatoeba project (CC-BY 2.0 FR) — attributions are in the data files
+themselves.
