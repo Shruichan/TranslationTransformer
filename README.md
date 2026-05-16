@@ -41,3 +41,23 @@ Training settings are the same for both languages:
 Pairs come from Tatoeba (`tatoeba.org`). The cleaning step in both training scripts trims
 everything after the first sentence terminator (`. ? ! 。 ？ ！`) so the model isn't trying to
 emit multi-sentence outputs.
+
+## Results
+
+Numbers below are pulled from [logs/training_results_japanese.txt](logs/training_results_japanese.txt)
+and [logs/training_results_french.txt](logs/training_results_french.txt).
+
+|         | Train loss | Val loss | Val token accuracy |
+|---------|-----------:|---------:|-------------------:|
+| EN → JA |      0.115 |    0.135 |             0.694  |
+| EN → FR |      0.053 |    0.055 |             0.850  |
+
+The French run converges noticeably faster and lower — same architecture, same hyperparameters.
+Japanese is just a harder target with this tokenizer (subword splitting on kana/kanji is uneven)
+and the dataset has more of the "one English sentence maps to several different Japanese
+translations" problem, which the model can't really win at.
+
+The training script computes a corpus BLEU at the end, but the `references` / `hypotheses` lists
+never actually get populated during validation (oversight from an earlier refactor), so the BLEU
+in the log files reads as 0.0 and should be ignored. The per-token accuracy and val loss are the
+real signal.
